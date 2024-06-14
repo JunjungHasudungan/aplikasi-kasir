@@ -5,8 +5,8 @@ namespace App\Helpers;
 class ListCategories
 {
     const ListCategories = [
-        'ATK'           => 'alat-tulis-kantor',
-        'ELEKTRONIK'    => 'electronic',
+        'ATK'           => 'ATK',
+        'ELEKTRONIK'    => 'elektronik',
         'ALAT-DAPUR'    => 'alat-dapur'
     ];
 }

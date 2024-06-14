@@ -1,51 +1,39 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Product;
 
-use App\Models\Image;
-use App\Models\Product;
 use Livewire\Component;
+use App\Models\{Image};
+use App\Models\Product;
 use Livewire\WithFileUploads;
 
-class Products extends Component
+class ProductForm extends Component
 {
     use WithFileUploads;
 
-    public
-            $is_create = false,
-            $price,
-            $amount,
-            $categori,
-            $name;
-
     public $photo;
+    public string $name;
+    public string $categori;
+    public int $amount;
+    public int $price;
+
+    protected $rules = [
+            'name'      => 'required|min:4|max:10|unique:products,name',
+            'price'     => 'required|integer',
+            'amount'    => 'required|integer',
+            'categori'  => 'required',
+            'photo'     => 'required|image|max:1024'
+    ];
 
     public function render()
     {
-        return view('livewire.products', [
-            'listProduct'   => Product::with('image')->get()
-        ]);
+        return view('livewire.product.product-form');
     }
-
-    public function openModalCreate()
-    {
-        return $this->is_create = true;
-    }
-
-    public function closeModalCreate()
-    {
-        return $this->is_create = false;
-    }
-
-    public function createProduct()
-    {
-        $this->openModalCreate();
-    }
-
     public function storeProduct()
     {
-        $validated = $this->validate([
-            'name'      => 'required|min:4|max:10|unique:products,name',
+        sleep(2);
+        $validatedData = $this->validate([
+            'name'      => 'required|min:4|max:20|unique:products,name',
             'price'     => 'required|integer',
             'amount'    => 'required|integer',
             'categori'  => 'required',
@@ -64,14 +52,14 @@ class Products extends Component
 
         ]);
 
-        // mengambil nama original dari gambar 
+        // mengambil nama original dari gambar
         $photoName = $this->photo->getClientOriginalName();
 
         $product = Product::create([
-            'name'          => $validated['name'],
-            'price'         => $validated['price'],
-            'amount'        => $validated['amount'],
-            'categori'      => $validated['categori'],
+            'name'          => $this->name,
+            'price'         => $this->price,
+            'amount'        => $this->amount,
+            'categori'      => $this->categori,
             'created_at'    => now(),
             'updated_at'    => now(),
         ]);
@@ -79,18 +67,21 @@ class Products extends Component
         if ($this->photo) {
             $photoName = $this->photo->getClientOriginalName();
             $path = $this->photo->storeAs('images', $photoName, 'public');
-            
+
             Image::create([
                 'path_name' => $path,
                 'product_id'    => $product->id
             ]);
         }
 
-            $this->reset('name', 'price', 'amount', 'categori');
+        $this->reset('name', 'price', 'amount', 'categori', 'photo');
 
-            $this->resetValidation('name', 'price', 'amount', 'categori', 'photo');
-                
-            $this->dispatch('saved-product', name: $product->name);
+        session()->flash('status', 'Produk Berhasil ditambahkan..');
+
+        // mwmberikan trigger ke komponent lain
+        $this->dispatch('product-created', $product);
+
+        // memberi trigger ke btn store
+        $this->dispatch('product-stored', $product);
     }
-
 }
