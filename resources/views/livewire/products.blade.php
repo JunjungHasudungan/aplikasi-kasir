@@ -42,11 +42,22 @@
                             @error('categori') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         <div class="col-span-2 sm:col-span-1">
-                            <label 
-                                for="image" 
+                            <label
+                                for="photo"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
-                            <input  wire:model="image" class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file">
-                            @error('image') <span class="text-red-500">{{ $message }}</span>@enderror
+                            <input accept="image/png, image/jpg, image/jpeg" wire:model="photo" class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file">
+                            @error('photo') <span class="text-red-500">{{ $message }}</span>@enderror
+                            @if ($photo)
+                                <img class="rounded w-10 h-10 mt-5 block " src="{{ $photo->temporaryUrl() }}">
+                            @endif
+
+                            <div wire:loading wire:target="photo">
+                                <span class="text-green-500">Loading...</span>
+                            </div>
+
+                            {{-- <div wire:loading.delay.longest>
+                                <span class="text-blue-500"> Sending..</span>
+                            </div> --}}
                         </div>
                         <div class="col-span-2 sm:col-span-1">
                             <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
@@ -57,6 +68,7 @@
                     <div class="flex items-center gap-4">
                         <button wire:click="storeProduct"
                                 type="submit"
+                                {{-- wire:loading.attr="disabled" --}}
                                 class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                           Produk
@@ -66,7 +78,7 @@
                         </x-action-message>
                     </div>
                     {{-- <button wire:click="storeProduct"
-                            type="submit" 
+                            type="submit"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                         Produk
