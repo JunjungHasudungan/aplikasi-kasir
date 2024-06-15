@@ -30,17 +30,29 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @if (auth()->user()->role == 'admin')
 
-                    {{-- select navigation base on role name --}}
-                        @if (auth()->user()->role == 'admin')
-                        <x-nav-link :href="route('produk.index')" :active="request()->routeIs('produk.index')" wire:navigate>
-                                {{ __('Produk') }}
+                        <x-nav-link :href="route('admin-dashboard.index')" :active="request()->routeIs('admin-dashboard.index')" wire:navigate>
+                            {{ __('Dashboard') }}
                         </x-nav-link>
-                        @endif
-                    </div>
+
+                        <x-nav-link :href="route('produk-admin.index')" :active="request()->routeIs('produk-admin.index')" wire:navigate>
+                            {{ __('Produk') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('order-produk-admin.index')" :active="request()->routeIs('order-produk-admin.index')" wire:navigate>
+                            {{ __('Order') }}
+                        </x-nav-link>
+
+                    @else
+                        <x-nav-link :href="route('user-dashboard.index')" :active="request()->routeIs('user-dashboard.index')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('order-produk-user.index')" :active="request()->routeIs('order-produk-user.index')" wire:navigate>
+                            {{ __('Order') }}
+                        </x-nav-link>
+                    @endif
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

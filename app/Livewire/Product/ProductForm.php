@@ -12,10 +12,10 @@ class ProductForm extends Component
     use WithFileUploads;
 
     public $photo;
-    public string $name;
-    public string $categori;
-    public int $amount;
-    public int $price;
+    public string $name = '';
+    public string $categori= '';
+    public int $amount = 0;
+    public int $price= 0;
 
     protected $rules = [
             'name'      => 'required|min:4|max:10|unique:products,name',
@@ -31,7 +31,7 @@ class ProductForm extends Component
     }
     public function storeProduct()
     {
-        sleep(2);
+        sleep(1);
         $validatedData = $this->validate([
             'name'      => 'required|min:4|max:20|unique:products,name',
             'price'     => 'required|integer',

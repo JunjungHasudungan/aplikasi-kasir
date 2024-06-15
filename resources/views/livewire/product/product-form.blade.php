@@ -16,7 +16,7 @@
     <div class="flex items-center justify-center">
         <div class="justify-center w-full border-2 border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             {{-- form --}}
-                <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+                <div wire:poll class="bg-white rounded-lg shadow dark:bg-gray-700">
                     <form wire:submit.prevent ="storeProduct" class="p-4 md:p-5">
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
@@ -26,7 +26,7 @@
                                         id="name"
                                         wire:model="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name">
-                                @error('name') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
@@ -35,7 +35,8 @@
                                         wire:model="price"
                                         id="price"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Rp.">
-                                @error('price') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                                        {{-- @error('price') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                             </div>
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="categori" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
@@ -49,14 +50,16 @@
                                         <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Kategori belum tersedia..</option>
                                     @endforelse
                                 </select>
-                                @error('categori') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input-error :messages="$errors->get('categori')" class="mt-2" />
+                                {{-- @error('categori') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                             </div>
                             <div class="col-span-2 sm:col-span-1">
                                 <label
                                     for="photo"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                                 <input accept="image/png, image/jpg, image/jpeg" wire:model="photo" class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file">
-                                @error('photo') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                                {{-- @error('photo') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                                 @if ($photo)
                                     <img class="rounded w-10 h-10 mt-5 block " src="{{ $photo->temporaryUrl() }}">
                                 @endif
@@ -68,7 +71,8 @@
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah</label>
                                 <input wire:model="amount" type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1">
-                                @error('amount') <span class="text-red-500">{{ $message }}</span>@enderror
+                                <x-input-error :messages="$errors->get('amount')" class="mt-2" />
+                                {{-- @error('amount') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                             </div>
                         </div>
                         <div class="flex items-center gap-4">

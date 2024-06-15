@@ -30,9 +30,17 @@ new #[Layout('layouts.guest')] class extends Component
 
         event(new Registered($user = User::create($validated)));
 
-        Auth::login($user);
+        // Auth::login($user);
+        if (auth()->user()->role == 'admin') {
+            Auth::login($user);
+            $this->redirectIntended(route('admin-dashboard.index', absolute: false), navigate: true);
+        } else {
+            Auth::login($user);
+            $this->redirectIntended(route('user-dashboard.index', absolute: false), navigate: true);
+        }
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+
+        // $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
 
