@@ -14,7 +14,7 @@
 
                             {{-- start for table --}}
                             <div>
-                                <livewire:product.product-form />
+                                <livewire:product.product-create />
                             </div>
                             {{-- end for table --}}
 

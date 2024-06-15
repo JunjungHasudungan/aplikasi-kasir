@@ -12,7 +12,7 @@ class ProductTable extends Component
     use WithPagination;
 
     // menerima dan merespon trigger dari component lain
-    #[On('product-created')]
+    #[On('product-stored')]
     public function updateTable($product = null)
     {
     }
