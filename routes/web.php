@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\{DashboardController as AdminDashboardController, OrderController as AdminOrderController, ProdukController};
-use App\Http\Controllers\User\{DashboardController as UserDashboardController, OrderController};
+use App\Livewire\Admin\{DashboardAdmin, OrderProduct};
+use App\Livewire\Admin\Order\OrderIndex as AdminOrderIndex;
+use App\Livewire\Product\ProductIndex;
+use App\Livewire\User\Order\OrderIndex;
+use App\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -10,25 +13,21 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('admin-dashboard', [AdminDashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('admin-dashboard.index');
+Route::middleware(['auth', 'verified'])->group(function(){
+    // ADMIN
+    Route::get('admin-dashboard', DashboardAdmin::class)->name('admin-dashboard.index');
+    Route::get('order-produk-admin', AdminOrderIndex::class)->name('order-produk-admin.index');
+    // Route::get('order-produk-admin', OrderProduct::class)->name('order-produk-admin.index');
+    Route::get('produk-admin', ProductIndex::class)->name('produk-admin.index');
 
-Route::get('user-dashboard', [UserDashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('user-dashboard.index');
+    // CUSTOMER
+    Route::get('user-dashboard', UserDashboard::class)->name('user-dashboard.index');
+    Route::get('order-produk-user', OrderIndex::class)->name('order-produk-user.index');
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::middleware(['auth', 'verified'])->group(function(){
-    // Admin
-    Route::get('produk-admin', [ProdukController::class, 'index'])->name('produk-admin.index');
-    Route::get('order-produk-admin', [AdminOrderController::class, 'index'])->name('order-produk-admin.index');
-
-    // Customer
-    Route::get('order-produk-user', [OrderController::class, 'index'])->name('order-produk-user.index');
-});
 
 require __DIR__.'/auth.php';

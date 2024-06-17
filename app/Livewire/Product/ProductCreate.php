@@ -10,6 +10,7 @@ class ProductCreate extends Component
 {
 
     use WithFileUploads;
+    public $modalProductCreate = false;
 
     // instansiasi ProdukForm
     public ProdukForm $form;
