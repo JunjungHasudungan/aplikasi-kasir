@@ -54,7 +54,8 @@
                         {{ $product->amount }}
                     </td>
                     <td class="px-4 py-4">
-                        <x-buttonCustom @click="$wire.set('modalDisplayProdctImage', true)"> {{ __('Tersedia') }} </x-buttonCustom>
+                        {{ __('Tersedua') }}
+                        {{-- <x-buttonCustom @click="$wire.set('modalDisplayProdctImage', true)"> {{ __('Tersedia') }} </x-buttonCustom>
                         <div>
                             <x-dialog-modal wire:model.live="modalDisplayProdctImage">
                                 <x-slot name="title">
@@ -111,7 +112,7 @@
                                 </x-slot>
                             </x-dialog-modal>
 
-                        </div>
+                        </div> --}}
                     </td>
                     <td class="px-4 py-4">
                        {{ $product->categori }}

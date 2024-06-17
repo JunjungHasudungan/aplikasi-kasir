@@ -2,7 +2,7 @@
 
 use App\Livewire\Admin\{DashboardAdmin, OrderProduct};
 use App\Livewire\Admin\Order\OrderIndex as AdminOrderIndex;
-use App\Livewire\Product\ProductIndex;
+use App\Livewire\Admin\Product\ProductIndex;
 use App\Livewire\User\Order\OrderIndex;
 use App\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Route;

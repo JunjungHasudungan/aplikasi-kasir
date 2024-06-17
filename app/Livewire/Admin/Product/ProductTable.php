@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Admin\Product;
 
 use Livewire\Attributes\Layout;
 use App\Models\Image;
@@ -50,7 +50,7 @@ class ProductTable extends Component
     #[Layout('layouts.app')]
     public function render()
     {
-        return view('livewire.product.product-table', [
+        return view('livewire.admin.product.product-table', [
             'listProduct'   => Product::with('image')->paginate(5)
         ]);
     }

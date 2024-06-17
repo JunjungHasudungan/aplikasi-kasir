@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Product;
+namespace App\Livewire\Admin\Product;
 
 use Livewire\Component;
 use App\Models\Product;
@@ -26,6 +26,6 @@ class DisplayImage extends Component
 
     public function render()
     {
-        return view('livewire.product.display-image');
+        return view('livewire.admin.product.display-image');
     }
 }
